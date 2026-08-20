@@ -1,0 +1,31 @@
+
+GET http://localhost:8080/all-movies
+
+###
+
+
+POST http://localhost:8080/create-movie
+Content-Type: application/json
+
+{
+    "title": "Jurassic Park",
+    "genre": "Aventura",
+    "duration": 127,
+    "rating": "12"
+}
+
+###
+
+
+PUT http://localhost:8080/update-movie/1
+Content-Type: application/json
+
+{
+    "title": "Duna - Parte Um",
+    "genre": "Ficção Científica",
+    "duration": 155,
+    "rating": "2"
+}
+###
+
+DELETE http://localhost:8080/delete-movie/1
