@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 // Mostrar todos os filmes
-app.get("/all-movies", (request, response) => {
+app.get("/", (request, response) => {
 
     const selectCommand = "SELECT * FROM filmes_Reyrey"
 
