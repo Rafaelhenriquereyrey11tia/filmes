@@ -4,15 +4,20 @@ async function cadastrarFilme() {
     const inputAgeLimit = document.getElementById("ageLimit")
     const inputDuration = document.getElementById("duration")
 
-    if (inputTitle.value === "" || inputGender.value === "" || inputAgeLimit.value === "" || inputDuration.value === "") {
+    if (
+        inputTitle.value === "" ||
+        inputGender.value === "" ||
+        inputAgeLimit.value === "" ||
+        inputDuration.value === ""
+    ) {
         alert("Preencha todas as informações!")
         return
     }
 
     const filme = {
         title: inputTitle.value,
-        gender: inputGender.value,
-        ageLimit: inputAgeLimit.valueAsNumber,
+        genre: inputGender.value,
+        rating: inputAgeLimit.valueAsNumber,
         duration: inputDuration.valueAsNumber
     }
 
@@ -24,8 +29,14 @@ async function cadastrarFilme() {
         body: JSON.stringify(filme)
     }
 
-    const resposta = await fetch("https://filmes-two-flax.vercel.app/create-movie", informacoesAEnviar)
+    const resposta = await fetch(
+        "https://filmes-two-flax.vercel.app/create-movie",
+        informacoesAEnviar
+    )
+
     const mensagemDecifrada = await resposta.json()
+
+    console.log(mensagemDecifrada)
 
     alert(mensagemDecifrada.message)
 

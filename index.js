@@ -33,7 +33,12 @@ app.get("/", (request, response) => {
 // Cadastrar filme
 app.post("/create-movie", (request, response) => {
 
-    const { title, genre, duration, rating } = request.body
+    const filme = {
+        title: inputTitle.value,
+        genre: inputGender.value,
+        rating: inputAgeLimit.valueAsNumber,
+        duration: inputDuration.valueAsNumber
+    } = request.body
 
     const insertCommand =
         "INSERT INTO filmes_Reyrey(title, genre, duration, rating) VALUES (?, ?, ?, ?)"
