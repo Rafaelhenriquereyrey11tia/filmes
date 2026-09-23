@@ -1,18 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
-    <title>Frontend</title>
+
+    <title>Filmes Reyrey e JL</title>
 </head>
+
 <body>
-    <h1>Filmes Reyrey e JL</h1>
 
-    <section class="filmes"></section>
+    <header class="header">
 
-    <script src="scrit.js"></script>
+        <div class="header-conteudo">
 
-    <a href="./cadastrar/cadastrar.html">Cadastrar</a>
+            <div>
+                <p class="eyebrow">CATÁLOGO</p>
+
+                <h1>Filmes Reyrey e JL</h1>
+
+                <p class="descricao">
+                    Gerencie os filmes cadastrados no sistema.
+                </p>
+            </div>
+
+            <a
+                class="botao-cadastrar"
+                href="./cadastrar/cadastrar.html"
+            >
+                Cadastrar filme
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <div class="topo-lista">
+
+            <h2>Filmes cadastrados</h2>
+
+            <span id="quantidade-filmes"></span>
+
+        </div>
+
+
+        <section class="filmes"></section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>

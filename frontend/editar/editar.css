@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --fundo: #f3f3f1;
+
+    --branco: #ffffff;
+
+    --preto: #111111;
+
+    --texto: #181818;
+
+    --secundario: #777777;
+
+    --borda: #dcdcd7;
+
+    --vermelho: #b3261e;
+}
+
+
+body {
+    font-family: "Inter", sans-serif;
+
+    background: var(--fundo);
+
+    color: var(--texto);
+}
+
+
+.pagina {
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    padding: 50px 25px;
+}
+
+
+.voltar {
+    display: inline-block;
+
+    color: var(--secundario);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    margin-bottom: 25px;
+}
+
+
+.voltar:hover {
+    color: var(--preto);
+}
+
+
+.formulario {
+    background: var(--branco);
+
+    border: 1px solid var(--borda);
+
+    padding: 40px;
+}
+
+
+.cabecalho {
+    padding-bottom: 30px;
+
+    border-bottom: 1px solid var(--borda);
+
+    margin-bottom: 30px;
+}
+
+
+.cabecalho p {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: var(--secundario);
+
+    margin-bottom: 12px;
+}
+
+
+.cabecalho h1 {
+    font-size: 32px;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 10px;
+}
+
+
+.cabecalho span {
+    font-size: 13px;
+
+    color: var(--secundario);
+}
+
+
+.campo {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    flex: 1;
+}
+
+
+.campo-grande {
+    margin-bottom: 20px;
+}
+
+
+.linha {
+    display: flex;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+label {
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+input {
+    width: 100%;
+
+    border: 1px solid var(--borda);
+
+    padding: 13px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    outline: none;
+
+    background: #fafaf8;
+}
+
+
+input:focus {
+    border-color: var(--preto);
+
+    background: white;
+}
+
+
+.salvar {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 15px;
+
+    border: 0;
+
+    background: var(--preto);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.salvar:hover {
+    background: #333333;
+}
+
+
+#mensagem {
+    margin-top: 20px;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+
+@media (max-width: 600px) {
+
+    .pagina {
+        padding: 25px 15px;
+    }
+
+
+    .formulario {
+        padding: 25px;
+    }
+
+
+    .linha {
+        flex-direction: column;
+    }
+
+}

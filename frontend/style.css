@@ -10,4 +10,360 @@ div {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+}@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --fundo: #f3f3f1;
+    --superficie: #ffffff;
+
+    --texto: #181818;
+    --texto-secundario: #707070;
+
+    --borda: #deded9;
+
+    --preto: #111111;
+
+    --vermelho: #b3261e;
+    --vermelho-hover: #8f1e18;
+}
+
+
+body {
+    font-family: "Inter", sans-serif;
+
+    background: var(--fundo);
+
+    color: var(--texto);
+}
+
+
+/* HEADER */
+
+.header {
+    background: var(--preto);
+
+    color: white;
+
+    padding: 48px 7%;
+}
+
+
+.header-conteudo {
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+.eyebrow {
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: #a9a9a9;
+
+    margin-bottom: 10px;
+
+    font-weight: 600;
+}
+
+
+h1 {
+    font-size: clamp(30px, 5vw, 52px);
+
+    letter-spacing: -2px;
+
+    line-height: 1;
+}
+
+
+.descricao {
+    margin-top: 14px;
+
+    color: #bdbdbd;
+
+    font-size: 15px;
+}
+
+
+/* BOTÃO CADASTRAR */
+
+.botao-cadastrar {
+    text-decoration: none;
+
+    background: white;
+
+    color: var(--preto);
+
+    padding: 13px 20px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    border-radius: 4px;
+
+    transition: 0.2s;
+}
+
+
+.botao-cadastrar:hover {
+    background: #dddddd;
+}
+
+
+/* CONTEÚDO */
+
+.container {
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 45px 7%;
+}
+
+
+.topo-lista {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid var(--borda);
+
+    padding-bottom: 15px;
+}
+
+
+.topo-lista h2 {
+    font-size: 20px;
+}
+
+
+#quantidade-filmes {
+    color: var(--texto-secundario);
+
+    font-size: 13px;
+}
+
+
+/* GRID */
+
+.filmes {
+    display: grid;
+
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(270px, 1fr)
+    );
+
+    gap: 18px;
+}
+
+
+/* CARD */
+
+.filme {
+    background: var(--superficie);
+
+    border: 1px solid var(--borda);
+
+    min-height: 255px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+}
+
+
+.filme:hover {
+    transform: translateY(-3px);
+
+    border-color: #a9a9a9;
+}
+
+
+.filme-conteudo {
+    padding: 23px;
+
+    flex: 1;
+}
+
+
+.filme-id {
+    color: #999;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 15px;
+}
+
+
+.filme h3 {
+    font-size: 21px;
+
+    line-height: 1.25;
+
+    margin-bottom: 22px;
+}
+
+
+/* INFORMAÇÕES */
+
+.informacoes {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+
+.informacao {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #eeeeeb;
+
+    padding-bottom: 8px;
+}
+
+
+.informacao span:first-child {
+    color: var(--texto-secundario);
+}
+
+
+.informacao span:last-child {
+    font-weight: 500;
+}
+
+
+/* BOTÕES */
+
+.acoes {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    border-top: 1px solid var(--borda);
+}
+
+
+.botao {
+    border: 0;
+
+    background: transparent;
+
+    padding: 14px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.botao-editar {
+    color: var(--texto);
+
+    border-right: 1px solid var(--borda);
+}
+
+
+.botao-editar:hover {
+    background: #f0f0ed;
+}
+
+
+.botao-apagar {
+    color: var(--vermelho);
+}
+
+
+.botao-apagar:hover {
+    background: #f9e9e7;
+}
+
+
+/* MENSAGEM */
+
+.mensagem {
+    grid-column: 1 / -1;
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    border: 1px dashed var(--borda);
+
+    color: var(--texto-secundario);
+}
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 650px) {
+
+    .header {
+        padding: 35px 6%;
+    }
+
+
+    .header-conteudo {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .botao-cadastrar {
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .container {
+        padding: 35px 6%;
+    }
+
+
+    .filmes {
+        grid-template-columns: 1fr;
+    }
+
 }

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="stylesheet"
+        href="editar.css"
+    >
+
+    <title>Editar filme</title>
+
+</head>
+
+
+<body>
+
+
+    <main class="pagina">
+
+
+        <a
+            class="voltar"
+            href="../index.html"
+        >
+
+            ← Voltar para filmes
+
+        </a>
+
+
+        <section class="formulario">
+
+
+            <div class="cabecalho">
+
+
+                <p>
+                    CATÁLOGO DE FILMES
+                </p>
+
+
+                <h1>
+                    Editar filme
+                </h1>
+
+
+                <span>
+
+                    Altere as informações abaixo
+                    e salve as modificações.
+
+                </span>
+
+
+            </div>
+
+
+            <form id="form-edicao">
+
+
+                <div class="campo campo-grande">
+
+
+                    <label for="title">
+
+                        Título
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="title"
+                        required
+                    >
+
+
+                </div>
+
+
+                <div class="linha">
+
+
+                    <div class="campo">
+
+
+                        <label for="genre">
+
+                            Gênero
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="genre"
+                            required
+                        >
+
+
+                    </div>
+
+
+                    <div class="campo">
+
+
+                        <label for="duration">
+
+                            Duração
+
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="duration"
+                            min="1"
+                            required
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="campo">
+
+
+                    <label for="rating">
+
+                        Classificação indicativa
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="rating"
+                        min="0"
+                        required
+                    >
+
+
+                </div>
+
+
+                <button
+                    class="salvar"
+                    type="submit"
+                >
+
+                    Salvar alterações
+
+                </button>
+
+
+            </form>
+
+
+            <p id="mensagem"></p>
+
+
+        </section>
+
+
+    </main>
+
+
+    <script src="editar.js"></script>
+
+
+</body>
+
+</html>
