@@ -1,40 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="cadastrar.css">
-    <title>Cadastrar novo filme</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="cadastrar.css"
+    >
+
+    <title>Cadastrar filme</title>
 </head>
+
 <body>
-    <header>
-        <a href="../index.html">Voltar</a>
-        <h1>Cadastrar novo filme</h1>
-    </header>
 
-    <main>
-        <form>
-            <div>
-                <label for="title">Título do filme:</label>
-                <input type="text" id="title" placeholder="Digite aqui o título">
-            </div>
-            <div>
-                <label for="gender">Gênero:</label>
-                <input type="text" id="gender" placeholder="Digite aqui o gênero">
-            </div>
-            <div>
-                <label for="ageLimit">Classificação indicativa:</label>
-                <input type="number" id="ageLimit" placeholder="Digite aqui a classificação indicativa">
-            </div>
-            <div>
-                <label for="duration">Duração:</label>
-                <input type="number" id="duration" placeholder="Digite aqui a duração">
-            </div>
-        </form>
+    <main class="formulario-container">
 
-        <button onclick="cadastrarFilme()">Cadastrar</button>
+        <a
+            class="voltar"
+            href="../index.html"
+        >
+            ← Voltar para o catálogo
+        </a>
+
+
+        <section class="formulario-card">
+
+            <p class="eyebrow">NOVO CADASTRO</p>
+
+            <h1>Cadastrar filme</h1>
+
+            <p class="formulario-descricao">
+                Insira as informações do filme para adicioná-lo ao catálogo.
+            </p>
+
+
+            <form id="formulario-filme">
+
+                <div class="campo campo-grande">
+
+                    <label for="title">
+                        Título
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Ex.: Interestelar"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="gender">
+                        Gênero
+                    </label>
+
+                    <input
+                        type="text"
+                        id="gender"
+                        placeholder="Ex.: Ficção científica"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="ageLimit">
+                        Classificação
+                    </label>
+
+                    <input
+                        type="number"
+                        id="ageLimit"
+                        min="0"
+                        placeholder="Ex.: 12"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="duration">
+                        Duração em minutos
+                    </label>
+
+                    <input
+                        type="number"
+                        id="duration"
+                        min="1"
+                        placeholder="Ex.: 169"
+                    >
+
+                </div>
+
+
+                <div class="formulario-acoes">
+
+                    <a
+                        class="botao-secundario"
+                        href="../index.html"
+                    >
+                        Cancelar
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="botao-principal"
+                    >
+                        Cadastrar filme
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
     </main>
 
+
     <script src="cadastrar.js"></script>
+
 </body>
+
 </html>

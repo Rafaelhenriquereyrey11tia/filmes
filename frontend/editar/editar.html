@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,172 +11,126 @@
 
     <link
         rel="stylesheet"
+        href="../style.css"
+    >
+
+    <link
+        rel="stylesheet"
         href="editar.css"
     >
 
     <title>Editar filme</title>
-
 </head>
-
 
 <body>
 
-
-    <main class="pagina">
-
+    <main class="formulario-container">
 
         <a
             class="voltar"
             href="../index.html"
         >
-
-            ← Voltar para filmes
-
+            ← Voltar para o catálogo
         </a>
 
 
-        <section class="formulario">
+        <section class="formulario-card">
+
+            <p class="eyebrow">GERENCIAMENTO</p>
+
+            <h1>Editar filme</h1>
+
+            <p class="formulario-descricao">
+                Altere as informações abaixo e salve as modificações.
+            </p>
 
 
-            <div class="cabecalho">
-
-
-                <p>
-                    CATÁLOGO DE FILMES
-                </p>
-
-
-                <h1>
-                    Editar filme
-                </h1>
-
-
-                <span>
-
-                    Altere as informações abaixo
-                    e salve as modificações.
-
-                </span>
-
-
-            </div>
-
-
-            <form id="form-edicao">
-
+            <form id="formulario-edicao">
 
                 <div class="campo campo-grande">
 
-
                     <label for="title">
-
                         Título
-
                     </label>
-
 
                     <input
                         type="text"
                         id="title"
-                        required
                     >
-
-
-                </div>
-
-
-                <div class="linha">
-
-
-                    <div class="campo">
-
-
-                        <label for="genre">
-
-                            Gênero
-
-                        </label>
-
-
-                        <input
-                            type="text"
-                            id="genre"
-                            required
-                        >
-
-
-                    </div>
-
-
-                    <div class="campo">
-
-
-                        <label for="duration">
-
-                            Duração
-
-                        </label>
-
-
-                        <input
-                            type="number"
-                            id="duration"
-                            min="1"
-                            required
-                        >
-
-
-                    </div>
-
 
                 </div>
 
 
                 <div class="campo">
 
-
-                    <label for="rating">
-
-                        Classificação indicativa
-
+                    <label for="gender">
+                        Gênero
                     </label>
 
-
                     <input
-                        type="number"
-                        id="rating"
-                        min="0"
-                        required
+                        type="text"
+                        id="gender"
                     >
-
 
                 </div>
 
 
-                <button
-                    class="salvar"
-                    type="submit"
-                >
+                <div class="campo">
 
-                    Salvar alterações
+                    <label for="ageLimit">
+                        Classificação
+                    </label>
 
-                </button>
+                    <input
+                        type="number"
+                        id="ageLimit"
+                        min="0"
+                    >
 
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="duration">
+                        Duração em minutos
+                    </label>
+
+                    <input
+                        type="number"
+                        id="duration"
+                        min="1"
+                    >
+
+                </div>
+
+
+                <div class="formulario-acoes">
+
+                    <a
+                        class="botao-secundario"
+                        href="../index.html"
+                    >
+                        Cancelar
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="botao-principal"
+                    >
+                        Salvar alterações
+                    </button>
+
+                </div>
 
             </form>
 
-
-            <p id="mensagem"></p>
-
-
         </section>
-
 
     </main>
 
 
     <script src="editar.js"></script>
-
 
 </body>
 

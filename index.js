@@ -1,118 +1,306 @@
 import express from "express"
 import mysql2 from "mysql2"
 import cors from "cors"
+
 const app = express()
+
+// ========================================
+// CONFIGURAÇÕES
+// ========================================
+
+app.use(cors())
+
+app.use(express.json())
+
+
+// ========================================
+// BANCO DE DADOS
+// ========================================
 
 const database = mysql2.createPool({
     host: "benserverplex.ddns.net",
     user: "alunos",
     password: "senhaAlunos",
-    database: "alunos_filmes_03MA"
+    database: "alunos_filmes_03MA",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 })
-app.use(cors())
-app.use(express.json())
 
-// Mostrar todos os filmes
+
+// ========================================
+// ROTA PRINCIPAL
+// ========================================
+
 app.get("/", (request, response) => {
 
-    const selectCommand = "SELECT * FROM filmes_Reyrey"
+    response.json({
+        message: "API de filmes funcionando!"
+    })
 
-    database.query(selectCommand, (error, data) => {
+})
+
+
+// ========================================
+// LISTAR FILMES
+// ========================================
+
+app.get("/all-movies", (request, response) => {
+
+    const command = `
+        SELECT
+            id,
+            title,
+            genre,
+            duration,
+            rating
+        FROM filmes_Reyrey
+        ORDER BY id DESC
+    `
+
+    database.query(command, (error, results) => {
 
         if (error) {
-            console.log(error)
-            return response.status(500).json(error)
+
+            console.error("ERRO AO BUSCAR FILMES:")
+            console.error(error)
+
+            return response.status(500).json({
+                message: "Erro ao buscar os filmes.",
+                error: error.message
+            })
         }
 
-        response.json(data)
+        response.status(200).json(results)
 
     })
 
 })
 
-// Cadastrar filme
+
+// ========================================
+// CADASTRAR FILME
+// ========================================
+
 app.post("/create-movie", (request, response) => {
 
-    const filme = {
-        title: inputTitle.value,
-        genre: inputGender.value,
-        rating: inputAgeLimit.valueAsNumber,
-        duration: inputDuration.valueAsNumber
+    console.log("Dados recebidos:")
+    console.log(request.body)
+
+
+    const {
+        title,
+        genre,
+        duration,
+        rating
     } = request.body
 
-    const insertCommand =
-        "INSERT INTO filmes_Reyrey(title, genre, duration, rating) VALUES (?, ?, ?, ?)"
 
-    database.query(insertCommand, [title, genre, duration, rating], (error) => {
+    // Verificar dados
 
-        if (error) {
+    if (
+        !title ||
+        !genre ||
+        duration === undefined ||
+        rating === undefined
+    ) {
 
-            console.log("ERRO:", error)
-
-            return response.status(500).json(error)
-
-        }
-
-        response.status(201).json({
-            message: "Filme cadastrado com sucesso!"
+        return response.status(400).json({
+            message: "Preencha todos os campos."
         })
 
-    })
+    }
+
+
+    const command = `
+        INSERT INTO filmes_Reyrey
+        (title, genre, duration, rating)
+        VALUES (?, ?, ?, ?)
+    `
+
+
+    database.query(
+        command,
+        [
+            title,
+            genre,
+            duration,
+            rating
+        ],
+        (error, result) => {
+
+            if (error) {
+
+                console.error("ERRO AO CADASTRAR:")
+                console.error(error)
+
+                return response.status(500).json({
+                    message: "Erro ao cadastrar o filme.",
+                    error: error.message
+                })
+
+            }
+
+
+            response.status(201).json({
+
+                message: "Filme cadastrado com sucesso!",
+
+                id: result.insertId
+
+            })
+
+        }
+    )
 
 })
 
-// Atualizar filme
+
+// ========================================
+// ATUALIZAR FILME
+// ========================================
+
 app.put("/update-movie/:id", (request, response) => {
 
     const { id } = request.params
-    const { title, genre, duration, rating } = request.body
 
-    const updateCommand =
-        "UPDATE filmes_Reyrey SET title = ?, genre = ?, duration = ?, rating = ? WHERE id = ?"
 
-    database.query(updateCommand, [title, genre, duration, rating, id], (error) => {
+    const {
+        title,
+        genre,
+        duration,
+        rating
+    } = request.body
 
-        if (error) {
 
-            console.log("ERRO:", error)
+    if (
+        !title ||
+        !genre ||
+        duration === undefined ||
+        rating === undefined
+    ) {
 
-            return response.status(500).json(error)
-
-        }
-
-        response.json({
-            message: "Filme atualizado com sucesso!"
+        return response.status(400).json({
+            message: "Preencha todos os campos."
         })
 
-    })
+    }
+
+
+    const command = `
+        UPDATE filmes_Reyrey
+
+        SET
+            title = ?,
+            genre = ?,
+            duration = ?,
+            rating = ?
+
+        WHERE id = ?
+    `
+
+
+    database.query(
+        command,
+        [
+            title,
+            genre,
+            duration,
+            rating,
+            id
+        ],
+        (error, result) => {
+
+            if (error) {
+
+                console.error("ERRO AO ATUALIZAR:")
+                console.error(error)
+
+                return response.status(500).json({
+                    message: "Erro ao atualizar o filme.",
+                    error: error.message
+                })
+
+            }
+
+
+            if (result.affectedRows === 0) {
+
+                return response.status(404).json({
+                    message: "Filme não encontrado."
+                })
+
+            }
+
+
+            response.status(200).json({
+
+                message: "Filme atualizado com sucesso!"
+
+            })
+
+        }
+    )
 
 })
 
-// Excluir filme
+
+// ========================================
+// APAGAR FILME
+// ========================================
+
 app.delete("/delete-movie/:id", (request, response) => {
 
     const { id } = request.params
 
-    const deleteCommand = "DELETE FROM filmes_Reyrey WHERE id = ?"
 
-    database.query(deleteCommand, [id], (error) => {
+    const command = `
+        DELETE FROM filmes_Reyrey
+        WHERE id = ?
+    `
 
-        if (error) {
 
-            console.log("ERRO:", error)
+    database.query(
+        command,
+        [id],
+        (error, result) => {
 
-            return response.status(500).json(error)
+            if (error) {
+
+                console.error("ERRO AO APAGAR:")
+                console.error(error)
+
+                return response.status(500).json({
+                    message: "Erro ao apagar o filme.",
+                    error: error.message
+                })
+
+            }
+
+
+            if (result.affectedRows === 0) {
+
+                return response.status(404).json({
+                    message: "Filme não encontrado."
+                })
+
+            }
+
+
+            response.status(200).json({
+
+                message: "Filme apagado com sucesso!"
+
+            })
 
         }
-
-        response.json({
-            message: "Filme apagado com sucesso!"
-        })
-
-    })
+    )
 
 })
 
-app.listen(8080, () => {
-    console.log("Servidor rodando na porta 8080")
-})
+
+// ========================================
+// EXPORTAR PARA A VERCEL
+// ========================================
+
+export default app
