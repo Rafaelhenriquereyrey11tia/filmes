@@ -8,24 +8,31 @@ async function buscarFilmes() {
 
     try {
 
-        const resposta = await fetch(URL_API)
+        const resposta = await fetch(`${URL_API}/all-movies`)
 
         if (!resposta.ok) {
-            throw new Error("Erro ao buscar filmes.")
+            throw new Error(`Erro HTTP: ${resposta.status}`)
         }
 
         const filmes = await resposta.json()
 
+        console.log("Filmes recebidos:", filmes)
+
+        if (!Array.isArray(filmes)) {
+            throw new Error("O servidor não retornou uma lista de filmes.")
+        }
+
         quantidadeFilmes.textContent =
             `${filmes.length} filme${filmes.length !== 1 ? "s" : ""}`
 
+        sectionFilmes.innerHTML = ""
 
         if (filmes.length === 0) {
 
             sectionFilmes.innerHTML = `
                 <div class="mensagem">
                     <strong>Nenhum filme cadastrado</strong>
-                    <span>Cadastre o primeiro filme para começar o catálogo.</span>
+                    <span>Cadastre um filme para começar.</span>
                 </div>
             `
 
@@ -33,15 +40,11 @@ async function buscarFilmes() {
         }
 
 
-        sectionFilmes.innerHTML = ""
-
-
         filmes.forEach((filme, index) => {
 
             const card = document.createElement("article")
 
             card.classList.add("filme")
-
 
             card.innerHTML = `
 
@@ -79,15 +82,13 @@ async function buscarFilmes() {
 
                     <button
                         class="botao-editar"
-                        onclick="editarFilme(${filme.id})"
-                    >
+                        onclick="editarFilme(${filme.id})">
                         Editar
                     </button>
 
                     <button
                         class="botao-apagar"
-                        onclick="apagarFilme(${filme.id}, '${filme.title.replace(/'/g, "\\'")}')"
-                    >
+                        onclick="apagarFilme(${filme.id})">
                         Apagar
                     </button>
 
@@ -100,14 +101,12 @@ async function buscarFilmes() {
 
     } catch (error) {
 
-        console.error(error)
-
-        quantidadeFilmes.textContent = ""
+        console.error("Erro ao buscar filmes:", error)
 
         sectionFilmes.innerHTML = `
             <div class="mensagem">
-                <strong>Não foi possível carregar os filmes</strong>
-                <span>Verifique se o backend está funcionando.</span>
+                <strong>Erro ao carregar os filmes</strong>
+                <span>Não foi possível carregar os dados.</span>
             </div>
         `
     }
@@ -115,7 +114,7 @@ async function buscarFilmes() {
 
 
 // ========================================
-// ABRIR EDIÇÃO
+// EDITAR
 // ========================================
 
 function editarFilme(id) {
@@ -126,20 +125,18 @@ function editarFilme(id) {
 
 
 // ========================================
-// APAGAR FILME
+// APAGAR
 // ========================================
 
-async function apagarFilme(id, titulo) {
+async function apagarFilme(id) {
 
     const confirmar = confirm(
-        `Deseja realmente apagar o filme "${titulo}"?`
+        "Deseja realmente apagar este filme?"
     )
-
 
     if (!confirmar) {
         return
     }
-
 
     try {
 
@@ -150,31 +147,37 @@ async function apagarFilme(id, titulo) {
             }
         )
 
-
         const mensagem = await resposta.json()
-
 
         if (!resposta.ok) {
 
-            alert(mensagem.message)
+            alert(
+                mensagem.message ||
+                "Erro ao apagar o filme."
+            )
 
             return
         }
 
-
-        alert(mensagem.message)
+        alert(
+            mensagem.message ||
+            "Filme apagado com sucesso!"
+        )
 
         buscarFilmes()
-
 
     } catch (error) {
 
         console.error(error)
 
-        alert("Não foi possível apagar o filme.")
-    }
+        alert("Erro ao conectar com o servidor.")
 
+    }
 }
 
+
+// ========================================
+// INICIAR
+// ========================================
 
 buscarFilmes()

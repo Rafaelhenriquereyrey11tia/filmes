@@ -4,6 +4,7 @@ import cors from "cors"
 
 const app = express()
 
+
 // ========================================
 // CONFIGURAÇÕES
 // ========================================
@@ -14,17 +15,25 @@ app.use(express.json())
 
 
 // ========================================
-// BANCO DE DADOS
+// CONEXÃO COM O BANCO DE DADOS
 // ========================================
 
 const database = mysql2.createPool({
+
     host: "benserverplex.ddns.net",
+
     user: "alunos",
+
     password: "senhaAlunos",
+
     database: "alunos_filmes_03MA",
+
     waitForConnections: true,
+
     connectionLimit: 10,
+
     queueLimit: 0
+
 })
 
 
@@ -35,14 +44,14 @@ const database = mysql2.createPool({
 app.get("/", (request, response) => {
 
     response.json({
-        message: "API de filmes funcionando!"
+        message: "Servidor de filmes funcionando!"
     })
 
 })
 
 
 // ========================================
-// LISTAR FILMES
+// LISTAR TODOS OS FILMES
 // ========================================
 
 app.get("/all-movies", (request, response) => {
@@ -58,18 +67,24 @@ app.get("/all-movies", (request, response) => {
         ORDER BY id DESC
     `
 
+
     database.query(command, (error, results) => {
 
         if (error) {
 
-            console.error("ERRO AO BUSCAR FILMES:")
-            console.error(error)
+            console.log("ERRO AO BUSCAR FILMES:")
+            console.log(error)
 
             return response.status(500).json({
+
                 message: "Erro ao buscar os filmes.",
+
                 error: error.message
+
             })
+
         }
+
 
         response.status(200).json(results)
 
@@ -84,8 +99,10 @@ app.get("/all-movies", (request, response) => {
 
 app.post("/create-movie", (request, response) => {
 
-    console.log("Dados recebidos:")
+    console.log("================================")
+    console.log("NOVO FILME RECEBIDO")
     console.log(request.body)
+    console.log("================================")
 
 
     const {
@@ -96,7 +113,7 @@ app.post("/create-movie", (request, response) => {
     } = request.body
 
 
-    // Verificar dados
+    // Verificar os dados recebidos
 
     if (
         !title ||
@@ -106,7 +123,9 @@ app.post("/create-movie", (request, response) => {
     ) {
 
         return response.status(400).json({
+
             message: "Preencha todos os campos."
+
         })
 
     }
@@ -114,29 +133,43 @@ app.post("/create-movie", (request, response) => {
 
     const command = `
         INSERT INTO filmes_Reyrey
-        (title, genre, duration, rating)
+        (
+            title,
+            genre,
+            duration,
+            rating
+        )
         VALUES (?, ?, ?, ?)
     `
 
 
     database.query(
+
         command,
+
         [
             title,
             genre,
             duration,
             rating
         ],
+
         (error, result) => {
 
             if (error) {
 
-                console.error("ERRO AO CADASTRAR:")
-                console.error(error)
+                console.log("================================")
+                console.log("ERRO AO CADASTRAR")
+                console.log(error)
+                console.log("================================")
+
 
                 return response.status(500).json({
+
                     message: "Erro ao cadastrar o filme.",
+
                     error: error.message
+
                 })
 
             }
@@ -151,6 +184,7 @@ app.post("/create-movie", (request, response) => {
             })
 
         }
+
     )
 
 })
@@ -181,7 +215,9 @@ app.put("/update-movie/:id", (request, response) => {
     ) {
 
         return response.status(400).json({
+
             message: "Preencha todos os campos."
+
         })
 
     }
@@ -201,7 +237,9 @@ app.put("/update-movie/:id", (request, response) => {
 
 
     database.query(
+
         command,
+
         [
             title,
             genre,
@@ -209,16 +247,21 @@ app.put("/update-movie/:id", (request, response) => {
             rating,
             id
         ],
+
         (error, result) => {
 
             if (error) {
 
-                console.error("ERRO AO ATUALIZAR:")
-                console.error(error)
+                console.log("ERRO AO ATUALIZAR:")
+                console.log(error)
+
 
                 return response.status(500).json({
+
                     message: "Erro ao atualizar o filme.",
+
                     error: error.message
+
                 })
 
             }
@@ -227,7 +270,9 @@ app.put("/update-movie/:id", (request, response) => {
             if (result.affectedRows === 0) {
 
                 return response.status(404).json({
+
                     message: "Filme não encontrado."
+
                 })
 
             }
@@ -240,6 +285,7 @@ app.put("/update-movie/:id", (request, response) => {
             })
 
         }
+
     )
 
 })
@@ -261,18 +307,25 @@ app.delete("/delete-movie/:id", (request, response) => {
 
 
     database.query(
+
         command,
+
         [id],
+
         (error, result) => {
 
             if (error) {
 
-                console.error("ERRO AO APAGAR:")
-                console.error(error)
+                console.log("ERRO AO APAGAR:")
+                console.log(error)
+
 
                 return response.status(500).json({
+
                     message: "Erro ao apagar o filme.",
+
                     error: error.message
+
                 })
 
             }
@@ -281,7 +334,9 @@ app.delete("/delete-movie/:id", (request, response) => {
             if (result.affectedRows === 0) {
 
                 return response.status(404).json({
+
                     message: "Filme não encontrado."
+
                 })
 
             }
@@ -294,9 +349,27 @@ app.delete("/delete-movie/:id", (request, response) => {
             })
 
         }
+
     )
 
 })
+
+
+// ========================================
+// SERVIDOR LOCAL + VERCEL
+// ========================================
+
+if (process.env.NODE_ENV !== "production") {
+
+    app.listen(8080, () => {
+
+        console.log(
+            "Servidor rodando em http://localhost:8080"
+        )
+
+    })
+
+}
 
 
 // ========================================
